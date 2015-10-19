@@ -3,6 +3,8 @@
 <head>
 	<title></title>
 
+	<meta charset="utf-8" />
+
 	<!--
 		Google Fonts		
 	-->
@@ -15,76 +17,6 @@
 	<link rel="stylesheet" type="text/css" href="assets/css/dash.css" />
 
 	<script src="assets/vendor/js/angular.min.js"></script>
-	<script type="text/javascript">
-	var app = angular.module("enemApp", []);
-
-	app.factory("questionService", function ($http) {
-		var questionService = (function () {
-			return {
-				list: [],
-				getList: function () {
-					var self = this;
-
-					$http.get("/question/").success(function (response) {
-						self.list = response;
-					});
-
-					return self;
-				},
-				__init: function () {
-					this.getList();
-					return this;
-				}
-			}
-		})();
-
-		return questionService.__init();
-	});
-
-	app.controller("questionController", ["$scope", "questionService", function ($scope, questionService) {
-		this.questionService = questionService;
-		this.current = 0;
-		this.ans = [];
-		this.end = false;
-
-		this.list = function () {
-			return this.questionService.list;
-		};
-
-		this.fqnQuestion = function ($ngscope, opt) {
-			return $ngscope["question"]["alternativa_" + opt];
-		};
-		
-		this.answer = function () {
-			with (this) {
-				var _selector = sprintf("[name=in-question-%d]:checked", current),
-					$child = $(_selector);
-
-				if ($child.exists() == false)
-					return alert("Please choose an option.");
-
-				var _current = current;
-
-				ans[_current] = $("[name=in-question-" + _current + "]:checked").val();
-
-				current++;
-				
-				if (current == questionService.list.length)
-					processQuestions();
-			}
-		};
-
-		this.processQuestions = function () {
-			this.end = true;
-			with (this) {
-				questionService.list.forEach(function (question, index) {
-					if (question["resposta"] == ans[index])
-						console.log("Acerto.");
-				});
-			}
-		};
-	}]);
-	</script>
 </head>
 <body>
 	<main role="main" class="container-fluid">
@@ -114,8 +46,6 @@
 	</main>
 
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-
-	<script src="assets/vendor/js/sprintf.js"></script>
-	<script src="assets/js/app.js"></script>
+	<script src="build/js/app.min.js"></script>
 </body>
 </html>
