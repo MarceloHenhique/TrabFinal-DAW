@@ -1,0 +1,23 @@
+.hide {
+	display: none;
+}
+
+.show {
+	display: initial;
+}
+
+.success {
+	color: green;
+}
+
+.error {
+	color: red;
+}
+
+body {
+	font-family: "Roboto";
+}
+
+strong {
+	font-weight: bold;
+}
