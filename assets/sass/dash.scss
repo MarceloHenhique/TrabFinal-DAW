@@ -1,5 +1,5 @@
-@import "../../assets/vendor/css/bootstrap.min.css";
-@import "../../assets/vendor/css/reset.css";
+@import "../../assets/vendor/css/bootstrap.min";
+@import "../../assets/vendor/css/reset";
 
 /* libs */
 @import "compass";
@@ -7,12 +7,12 @@
 html {
 	body {
 		main[role="main"] {
-			.hide {
-				display: none;
+			font: {
+				family: "Roboto";
 			}
 
-			.show {
-				display: initial;
+			.hidden {
+				display: none;
 			}
 
 			.success {
@@ -21,10 +21,6 @@ html {
 
 			.error {
 				color: red;
-			}
-
-			body {
-				font-family: "Roboto";
 			}
 
 			strong {

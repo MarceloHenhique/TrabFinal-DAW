@@ -1,5 +1,5 @@
-<main role="main" class="container-fluid">
-	<div class="row">
+<main role="main" class="container-fluid hidden">
+	<article role="complementary" class="row">
 		<div class="col-xs-offset-3 col-xs-6" ng-controller="questionController as questionCtrl">
 			<div ng-show="questionCtrl.end || questionCtrl.current == $index" ng-repeat="question in questionCtrl.list()" id="question-{{ $index }}">
 				<div>
@@ -21,5 +21,5 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</article>
 </main>
