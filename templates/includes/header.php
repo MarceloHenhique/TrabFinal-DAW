@@ -16,6 +16,9 @@
 
 	<link rel="stylesheet" type="text/css" href="assets/css/dash.css" />
 
+	<!-- 
+		Should be loaded before the DOM
+	-->
 	<script src="assets/vendor/js/angular.min.js"></script>
 </head>
 <body>
