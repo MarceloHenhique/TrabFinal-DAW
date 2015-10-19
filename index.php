@@ -4,19 +4,15 @@ require 'Slim/Slim.php';
 
 $app = new \Slim\Slim();
 
-$app->get('/consume(/)', function () use ($app) {
-	echo file_get_contents("consume.php");
+$app->get("/", function () use ($app) {
+	require_once "dashboard.php";
 });
 
-$app->get('/questoes/', function () use ($app) {
-	$app->redirect($app->urlFor("hello"));
-});
-
-$app->get('/realpath/', function () {
+$app->get("/question/", function () {
 
 	$con = mysqli_connect("localhost", "root", "", "enem");
 
-	$query = mysqli_query($con, "SELECT * FROM myTable LIMIT 0,10");
+	$query = mysqli_query($con, "SELECT * FROM myTable LIMIT 0,3");
 
 	$questions = array();
 
