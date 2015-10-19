@@ -29,5 +29,17 @@ $app->get("/question/", function () {
 
 })->name("hello");
 
+$app->get("/.*/", function () use ($app) {
+	get_header();
+
+	try {
+		include_once "templates/" . $app->request->getResourceUri() . ".php";
+	} catch (Exception $err) {
+		$app->notFound();
+	}
+
+	get_footer();
+});
+
 $app->run();
 ?>
