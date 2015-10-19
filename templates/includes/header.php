@@ -17,5 +17,7 @@
 		Should be loaded before the DOM
 	-->
 	<script src="assets/vendor/js/angular.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0-beta.1/angular-animate.js"></script>
+
 </head>
 <body>

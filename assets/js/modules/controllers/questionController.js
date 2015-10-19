@@ -1,4 +1,4 @@
-app.controller("questionController", ["$scope", "questionService", function ($scope, questionService) {
+app.controller("questionController", ["$scope", "$timeout", "questionService", function ($scope, $timeout, questionService) {
 	this.questionService = questionService;
 	this.current = 0;
 	this.ans = [];
@@ -13,22 +13,27 @@ app.controller("questionController", ["$scope", "questionService", function ($sc
 	};
 	
 	this.answer = function () {
-		with (this) {
-			var _selector = sprintf("[name=in-question-%d]:checked", current),
+			var _selector = sprintf("[name=in-question-%d]:checked", this.current),
 			$child = $(_selector);
 
 			if ($child.exists() == false)
 				return alert("Please choose an option.");
 
-			var _current = current;
+			var _current = this.current;
 
-			ans[_current] = $("[name=in-question-" + _current + "]:checked").val();
+			this.ans[_current] = $("[name=in-question-" + _current + "]:checked").val();
 
-			current++;
+			this.current = -1;
+
+			var self = this;
+			$timeout(function () {
+				//$scope.questionCtrl.current = _current + 1;
+				self.current = _current + 1;
+
+				if (self.current == self.questionService.list.length)
+					self.processQuestions();				
+			}, 1000);
 			
-			if (current == questionService.list.length)
-				processQuestions();
-		}
 	};
 
 	this.processQuestions = function () {

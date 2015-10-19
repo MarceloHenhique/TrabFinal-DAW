@@ -4,6 +4,15 @@
 /* libs */
 @import "compass";
 
+.animate-hide {
+  transition: all ease-in-out 0.5s;
+  opacity: 1;
+}
+
+.animate-hide.ng-hide {
+  opacity: 0;
+}
+
 html {
 	body {
 		main[role="main"] {
@@ -11,7 +20,7 @@ html {
 				family: "Roboto";
 			}
 
-			.hidden {
+			&.hidden {
 				display: none;
 			}
 
