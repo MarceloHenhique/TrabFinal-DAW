@@ -29,11 +29,12 @@ $app->get("/question/", function () {
 
 })->name("hello");
 
-$app->get("/.*/", function () use ($app) {
+$app->get("/.*(/)", function () use ($app) {
 	get_header();
 
 	try {
-		include_once "templates/" . $app->request->getResourceUri() . ".php";
+		$url = str_replace("/", "", $app->request->getResourceUri());
+		include_once "templates/" . $url . ".php";
 	} catch (Exception $err) {
 		$app->notFound();
 	}
