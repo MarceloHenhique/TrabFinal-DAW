@@ -1,11 +1,17 @@
 <?php
+require "config.php";
+
 require 'Slim/Slim.php';
 \Slim\Slim::registerAutoloader();
 
 $app = new \Slim\Slim();
 
 $app->get("/", function () use ($app) {
-	require_once "dashboard.php";
+	get_header();
+
+	require_once "templates/dashboard.php";
+
+	get_footer();
 });
 
 $app->get("/question/", function () {
