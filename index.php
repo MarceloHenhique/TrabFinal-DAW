@@ -30,16 +30,17 @@ $app->get("/question/", function () {
 })->name("hello");
 
 $app->get("/.*(/)", function () use ($app) {
-	get_header();
-
 	try {
 		$url = str_replace("/", "", $app->request->getResourceUri());
+
+		get_header();
+		
 		include_once "templates/" . $url . ".php";
+
+		get_footer();
 	} catch (Exception $err) {
 		$app->notFound();
 	}
-
-	get_footer();
 });
 
 $app->run();
