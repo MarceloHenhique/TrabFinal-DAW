@@ -31,11 +31,11 @@ $app->get("/question/", function () {
 
 $app->get("/.*(/)", function () use ($app) {
 	try {
-		$url = str_replace("/", "", $app->request->getResourceUri());
+		$url = str_replace(".", "", $app->request->getResourceUri());
 
 		get_header();
 		
-		include_once "templates/" . $url . ".php";
+		include_once "templates$url.php";
 
 		get_footer();
 	} catch (Exception $err) {
