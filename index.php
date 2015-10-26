@@ -6,6 +6,10 @@ require 'Slim/Slim.php';
 
 $app = new \Slim\Slim();
 
+$app->get("/elber/", function () use ($app) {
+	printf("Hello world.");
+});
+
 $app->get("/", function () use ($app) {
 	get_header();
 
@@ -34,7 +38,7 @@ $app->get("/.*(/)", function () use ($app) {
 		$url = str_replace(".", "", $app->request->getResourceUri());
 
 		get_header();
-		
+
 		include_once "templates$url.php";
 
 		get_footer();
