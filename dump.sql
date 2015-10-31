@@ -1,0 +1,30 @@
+CREATE TABLE users (
+	id INT NOT NULL AUTO_INCREMENT,
+	login VARCHAR(45) NOT NULL,
+	password VARCHAR(255) NOT NULL,
+	email VARCHAR(255) NOT NULL,
+	firstname VARCHAR(45) NOT NULL,
+	lastname VARCHAR(45) NOT NULL,
+	telephone VARCHAR(15) DEFAULT "non-informed",
+	birthdate DATE NOT NULL,
+	cpf VARCHAR(15) DEFAULT "non-informed",
+	rank INT DEFAULT 1,
+
+	CONSTRAINT pk_users PRIMARY KEY (id);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT = 1;
+
+CREATE TABLE questions (
+	id INT NOT NULL AUTO_INCREMENT,
+	statement TEXT NOT NULL,
+
+	CONSTRAINT pk_questions PRIMARY KEY (id);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT = 1;
+
+CREATE TABLE questions_has_alternative (
+	id INT NOT NULL AUTO_INCREMENT,
+	questions_id INT NOT NULL,
+	statement TINYTEXT NOT NULL,
+
+	CONSTRAINT fk_questions_id FOREIGN KEY (questions_id) REFERENCES questions(id) ON DELETE CASCADE;
+	PRIMARY KEY(id);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT = 1;
