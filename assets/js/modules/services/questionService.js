@@ -1,4 +1,4 @@
-app.factory("questionService", function ($http) {
+app.factory("questionService", ["$http", function ($http) {
 	var questionService = (function () {
 		return {
 			list: [],
@@ -21,4 +21,4 @@ app.factory("questionService", function ($http) {
 	})();
 
 	return questionService.__init();
-});
+}]);

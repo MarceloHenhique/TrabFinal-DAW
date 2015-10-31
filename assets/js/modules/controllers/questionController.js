@@ -9,9 +9,14 @@ app.controller("questionController", ["$scope", "$timeout", "questionService", f
 	};
 
 	this.fqnQuestion = function ($ngscope, opt) {
-		return $ngscope["question"]["alternativa_" + opt];
+		var the_statement = $ngscope["question"]["alternative_" + opt];
+
+		if (the_statement == null || the_statement.length == 0)
+			return false;
+
+		return the_statement;
 	};
-	
+
 	this.answer = function () {
 			var _selector = sprintf("[name=in-question-%d]:checked", this.current),
 			$child = $(_selector);
@@ -31,18 +36,19 @@ app.controller("questionController", ["$scope", "$timeout", "questionService", f
 				self.current = _current + 1;
 
 				if (self.current == self.questionService.list.length)
-					self.processQuestions();				
+					self.processQuestions();
 			}, 1000);
-			
+
 	};
 
 	this.processQuestions = function () {
-		this.end = true;
-		with (this) {
-			questionService.list.forEach(function (question, index) {
-				if (question["resposta"] == ans[index])
-					console.log("Acerto.");
-			});
-		}
+		var self = this;
+
+		self.end = true;
+		questionService.list.forEach(function (question, index) {
+			if (question["answer"] == self.ans[index])
+				console.log("Acerto.");
+		});
 	};
+
 }]);
