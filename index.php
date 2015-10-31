@@ -33,9 +33,12 @@ $app->get("/question/", function () {
 
 })->name("hello");
 
-$app->get("/.*(/)", function () use ($app) {
+$app->get("/.*", function () use ($app) {
 	try {
 		$url = str_replace(".", "", $app->request->getResourceUri());
+
+		if ($url[strlen($url) - 1] == "/")
+			$url = substr($url, 0, strlen($url) - 1);
 
 		get_header();
 
