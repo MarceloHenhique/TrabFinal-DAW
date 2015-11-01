@@ -13,7 +13,7 @@ module.exports = function( grunt ) {
 				files: [
 					'../assets/sass/**/*.scss'
 				],
-				tasks: [ 'compass' ]
+				tasks: [ 'compass', 'beep' ]
 			},
 			js: {
 				files: [
@@ -21,7 +21,7 @@ module.exports = function( grunt ) {
 					'../assets/js/**/**/*.js',
 					'!../assets/vendor/js/angular.min.js'
 				],
-				tasks: [ 'uglify' ]
+				tasks: [ 'uglify', 'beep' ]
 			}
 		},
 
@@ -39,7 +39,9 @@ module.exports = function( grunt ) {
 		// Concat and minify javascripts
 		uglify: {
 			options: {
-				mangle: false
+				mangle: false,
+				compress: false,
+				beautify: true
 			},
 			dist: {
 				files: {
