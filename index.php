@@ -57,6 +57,56 @@ $app->post("/results/", function () use ($app, $con) {
 
 });
 
+$app->get("/stats/:examid/", function ($examid) use ($app, $con) {
+
+	$app->response->headers->set("Content-Type", "text/plain");
+
+	$handle = mysqli_query($con, "SELECT COUNT(*) AS Quantidade FROM exams
+		INNER JOIN exams_has_questions ON exams.id = exams_has_questions.exams_id
+    WHERE exams.id = $examid AND exams.users_id = 1;");
+
+	$row = mysqli_fetch_array($handle);
+	$count_total = $row["Quantidade"];
+
+	$handle = mysqli_query($con, "SELECT COUNT(*) as Acertos FROM results
+		INNER JOIN questions ON results.questions_id = questions.id
+  	INNER JOIN topics ON questions.topics_id = topics.id
+		WHERE results.answer = questions.answer AND results.users_id = 1 AND results.exams_id = $examid;");
+
+	$row = mysqli_fetch_array($handle);
+	$acertos = $row["Acertos"];
+
+	printf("Questões totais: %d\nQuestões certas: %d\nTaxa de acerto: %.2f%%.", $count_total, $acertos, ($acertos * 100) / $count_total);
+
+});
+
+$app->get("/stats/:examid/:topicid/", function ($examid, $topicid) use ($app, $con) {
+
+	$app->response->headers->set("Content-Type", "text/plain; charset=utf-8");
+
+	$handle = mysqli_query($con, "SELECT COUNT(*) AS Quantidade FROM results
+		INNER JOIN questions ON questions.id = results.questions_id
+  	INNER JOIN topics ON topics.id = questions.topics_id
+		WHERE questions.topics_id = $topicid AND results.users_id = 1 AND results.exams_id = $examid");
+
+	$row = mysqli_fetch_array($handle);
+	$count_total = $row["Quantidade"];
+
+	$handle = mysqli_query($con, "SELECT subjects.name AS Materia, topics.description AS Topico, COUNT(*) AS Acertos FROM results
+		INNER JOIN questions ON questions.id = results.questions_id
+  	INNER JOIN topics ON topics.id = questions.topics_id
+		INNER JOIN subjects ON subjects.id = topics.subjects_id
+		WHERE questions.topics_id = $topicid AND results.answer = questions.answer AND results.users_id = 1 AND results.exams_id = $examid");
+
+	$row = mysqli_fetch_array($handle);
+	$acertos = $row["Acertos"];
+	$materia = $row["Materia"];
+	$topico  = $row["Topico"];
+
+	printf("-- Acertos no tópico %s (Disciplina: %s) --\nQuestões totais: %d\nQuestões certas: %d\nTaxa de acerto: %.2f%%.", $topico, $materia, $count_total, $acertos, ($acertos * 100) / $count_total);
+
+});
+
 /* generic route to solve templates folder */
 $app->get("/.*", function () use ($app) {
 	try {

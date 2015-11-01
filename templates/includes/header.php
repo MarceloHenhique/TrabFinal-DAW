@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html ng-app="enemApp">
+<html ng-app="enemApp" lang="pt-br">
 <head>
-	<title></title>
+	<title>Simulador ENEM</title>
 
+	<meta http-equiv="x-ua-compatible" content="ie=edge" />
 	<meta charset="utf-8" />
 
 	<!--

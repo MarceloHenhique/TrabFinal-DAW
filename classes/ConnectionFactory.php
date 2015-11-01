@@ -6,7 +6,11 @@ class ConnectionFactory {
   private static $dbnm = "enem";
 
   public static function getConnection() {
-    return mysqli_connect(ConnectionFactory::$host, ConnectionFactory::$user, ConnectionFactory::$pssw, ConnectionFactory::$dbnm);
+    $con = mysqli_connect(ConnectionFactory::$host, ConnectionFactory::$user, ConnectionFactory::$pssw, ConnectionFactory::$dbnm);
+
+    mysqli_query($con, "SET NAMES utf8");
+
+    return $con;
   }
 }
 ?>
