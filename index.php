@@ -4,6 +4,8 @@ require "config.php";
 require 'Slim/Slim.php';
 \Slim\Slim::registerAutoloader();
 
+$con = ConnectionFactory::getConnection();
+
 $app = new \Slim\Slim();
 
 $app->get("/elber/", function () use ($app) {
@@ -18,9 +20,9 @@ $app->get("/", function () use ($app) {
 	get_footer();
 });
 
-$app->get("/question/", function () use ($app) {
+$app->get("/question/", function () use ($app, $con) {
 
-	$con = mysqli_connect("localhost", "root", "", "enem");
+	$app->response->headers->set("Content-Type", "application/json");
 
 	$query = mysqli_query($con, "SELECT questions.* FROM exams
 		INNER JOIN exams_has_questions ON exams.id = exams_has_questions.exams_id
@@ -30,26 +32,32 @@ $app->get("/question/", function () use ($app) {
 	$questions = array();
 
 	while ($row = mysqli_fetch_object($query)) {
-		foreach ($row as $key => $value)
-			if (is_string($value))
-				$row->$key = utf8_encode($value);
-
+		validate_as_utf8($row);
 		$questions[] = $row;
 	}
 
+	/* just for loading-bar purposes */
 	sleep(1);
+
 	echo json_encode($questions);
 
 })->name("hello");
 
-$app->post("/results/", function () use ($app) {
+$app->post("/results/", function () use ($app, $con) {
 
-	$con = mysqli_connect("localhost", "root", "", "enem");
+	$app->response->headers->set("Content-Type", "text/plain");
 
-	$query = mysqli_query("INSERT INTO results ()"); // should be continued
+	$body = $app->request->getBody();
+	$data = json_decode($body);
+
+	foreach ($data->questions as $question_id => $answer)
+		$query = mysqli_query($con, "INSERT INTO results (users_id, exams_id, questions_id, answer) VALUES ('$data->user_id', '$data->exam_id', '$question_id', '$answer'); ");
+
+	echo "success";
 
 });
 
+/* generic route to solve templates folder */
 $app->get("/.*", function () use ($app) {
 	try {
 		$url = str_replace(".", "", $app->request->getResourceUri());

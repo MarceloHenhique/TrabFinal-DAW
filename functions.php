@@ -10,4 +10,10 @@ function get_footer() {
 function root_dir() {
 	return "http://$_SERVER[HTTP_HOST]/";
 }
+
+function validate_as_utf8($object) {
+	foreach ($object as $key => $value)
+		if (is_string($value))
+			$object->$key = utf8_encode($value);
+}
 ?>

@@ -1,9 +1,13 @@
-app = angular.module("enemApp", ["ngAnimate", "angular-loading-bar"]);
+(function (_) {
+	"use strict";
 
-$.fn.exists = function () {
-	return this.length > 0;
-}
+	_.app = angular.module("enemApp", ["ngAnimate", "angular-loading-bar"]);
 
-$(function () {
-	console.log("Ready");
-});
+	$.fn.exists = function () {
+		return this.length > 0;
+	}
+
+	$(function () {
+		console.log("Ready");
+	});
+})(window);

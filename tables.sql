@@ -3,9 +3,9 @@ SET FOREIGN_KEY_CHECKS = 0;
 #DROP TABLE IF EXISTS users;
 #DROP TABLE IF EXISTS subjects;
 #DROP TABLE IF EXISTS topics;
-DROP TABLE IF EXISTS questions;
-DROP TABLE IF EXISTS exams;
-DROP TABLE IF EXISTS exams_has_questions;
+#DROP TABLE IF EXISTS questions;
+#DROP TABLE IF EXISTS exams;
+#DROP TABLE IF EXISTS exams_has_questions;
 DROP TABLE IF EXISTS results;
 
 CREATE TABLE IF NOT EXISTS users (
@@ -75,6 +75,7 @@ CREATE TABLE IF NOT EXISTS results (
   users_id INT NOT NULL,
   exams_id INT NOT NULL,
   questions_id INT NOT NULL,
+	answer VARCHAR(1) NOT NULL,
 
   CONSTRAINT fk_results_users_id FOREIGN KEY(users_id) REFERENCES users(id) ON DELETE CASCADE,
   CONSTRAINT fk_results_exams_id FOREIGN KEY(exams_id) REFERENCES exams(id) ON DELETE CASCADE,

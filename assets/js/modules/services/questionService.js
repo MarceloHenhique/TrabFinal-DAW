@@ -1,24 +1,21 @@
 app.factory("questionService", ["$http", function ($http) {
 	var questionService = (function () {
 		return {
-			list: [],
-			ready: false,
-			getList: function () {
-				var self = this;
-
-				$http.get("/question/").success(function (response) {
-					self.list = response;
-					self.ready = true;
-				});
-
-				return self;
+			defaultErrorCallback: function (response) {
+				document.write(response);
 			},
-			__init: function () {
-				this.getList();
-				return this;
+			getList: function (callback) {
+				$http.get("/question/").success(function (response) {
+					callback(response);
+				}).error(this.defaultErrorCallback);
+			},
+			sendAnswers: function (data, callback) {
+				$http.post("/results/", data).success(function (response) {
+					callback(response);
+				}).error(this.defaultErrorCallback);
 			}
-		}
+		};
 	})();
 
-	return questionService.__init();
+	return questionService;
 }]);
