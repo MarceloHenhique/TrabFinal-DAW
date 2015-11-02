@@ -44,7 +44,7 @@ app.controller("questionController", ["$scope", "$timeout", "questionService", f
 
 		var _Data = {
 			"user_id": 1,
-			"exam_id": 1,
+			"exam_id": 11,
 			"questions": {}
 		};
 

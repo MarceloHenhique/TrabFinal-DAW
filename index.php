@@ -15,20 +15,21 @@ require "routes/deletes.php";
 
 /* generic route to solve templates folder */
 $app->get("/.*", function () use ($app) {
-	try {
-		$url = str_replace(".", "", $app->request->getResourceUri());
+    try {
+        $url = str_replace(".", "", $app->request->getResourceUri());
 
-		if ($url[strlen($url) - 1] == "/")
-			$url = substr($url, 0, strlen($url) - 1);
+        if ($url[strlen($url) - 1] == "/") {
+            $url = substr($url, 0, strlen($url) - 1);
+        }
+            
+        get_header();
 
-		get_header();
+        include_once "templates$url.php";
 
-		include_once "templates$url.php";
-
-		get_footer();
-	} catch (Exception $err) {
-		$app->notFound();
-	}
+        get_footer();
+    } catch (Exception $err) {
+        $app->notFound();
+    }
 });
 
 $app->run();

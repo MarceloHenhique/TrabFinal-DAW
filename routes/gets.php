@@ -13,7 +13,7 @@ $app->get("/question/", function () use ($app, $con) {
 	$query = mysqli_query($con, "SELECT questions.* FROM exams
 		INNER JOIN exams_has_questions ON exams.id = exams_has_questions.exams_id
 		INNER JOIN questions ON exams_has_questions.questions_id = questions.id
-		WHERE exams.id = 1;");
+		WHERE exams.id = 11 ORDER BY RAND();");
 
 	$questions = array();
 
@@ -58,6 +58,11 @@ $app->get("/stats/:examid/:topicid/", function ($examid, $topicid) use ($app, $c
 	$row = mysqli_fetch_array($handle);
 	$count_total = $row["Quantidade"];
 
+	if ($count_total == 0) {
+		printf("Não houveram questões neste tópico.");
+		return;
+	}
+
 	$handle = mysqli_query($con, "SELECT subjects.name AS Materia, topics.description AS Topico, COUNT(*) AS Acertos FROM results
 		INNER JOIN questions ON questions.id = results.questions_id
   	INNER JOIN topics ON topics.id = questions.topics_id
@@ -73,6 +78,9 @@ $app->get("/stats/:examid/:topicid/", function ($examid, $topicid) use ($app, $c
 });
 
 $app->get("/subjects/", function () use ($app, $con) {
+
+	$app->response->headers->set("Content-Type", "application/json");
+
   $handle = mysqli_query($con, "SELECT subjects.id AS MateriaID, subjects.name AS Materia, topics.id AS TopicoID, topics.description AS Topico FROM subjects
 	INNER JOIN topics ON topics.subjects_id = subjects.id
     WHERE 1");
