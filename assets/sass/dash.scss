@@ -43,6 +43,11 @@ html {
 			color: red;
 		}
 
+    input[type="button"], input[type="submit"] {
+      padding: 2px;
+      border: 2px outset buttonface;
+    }
+
     aside.menu {
       background-color: $base_color;
       color: #FFFFFF;
@@ -127,6 +132,19 @@ html {
 					}
 				}
 			}
+
+      article[role="complementary"].exams-create {
+        form {
+          select {
+            display: block;
+
+            &[multiple] {
+              overflow: hidden;
+              margin-top: 20px;
+            }
+          }
+        }
+      }
 		}
 	}
 }
