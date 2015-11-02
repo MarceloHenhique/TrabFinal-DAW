@@ -8,10 +8,6 @@ $con = ConnectionFactory::getConnection();
 
 $app = new \Slim\Slim();
 
-$app->get("/elber/", function () use ($app) {
-	printf("Hello world.");
-});
-
 $app->get("/", function () use ($app) {
 	get_header();
 
@@ -82,8 +78,6 @@ $app->get("/stats/:examid/", function ($examid) use ($app, $con) {
 
 $app->get("/stats/:examid/:topicid/", function ($examid, $topicid) use ($app, $con) {
 
-	$app->response->headers->set("Content-Type", "text/plain; charset=utf-8");
-
 	$handle = mysqli_query($con, "SELECT COUNT(*) AS Quantidade FROM results
 		INNER JOIN questions ON questions.id = results.questions_id
   	INNER JOIN topics ON topics.id = questions.topics_id
@@ -103,7 +97,7 @@ $app->get("/stats/:examid/:topicid/", function ($examid, $topicid) use ($app, $c
 	$materia = $row["Materia"];
 	$topico  = $row["Topico"];
 
-	printf("-- Acertos no tópico %s (Disciplina: %s) --\nQuestões totais: %d\nQuestões certas: %d\nTaxa de acerto: %.2f%%.", $topico, $materia, $count_total, $acertos, ($acertos * 100) / $count_total);
+	printf("-- Acertos no tópico %s (Disciplina: %s) --\nQuestões totais: %d\nQuestões certas: %d\nTaxa de acerto: %.2f%%.", $topico, utf8_encode($materia), $count_total, $acertos, ($acertos * 100) / $count_total);
 
 });
 

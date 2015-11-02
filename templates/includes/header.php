@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="enemApp" lang="pt-br">
+<html ng-app="enemApp">
 <head>
 	<title>Simulador ENEM</title>
 
@@ -21,3 +21,5 @@
 
 </head>
 <body>
+<?php include "menu.php"; ?>
+<main role="main" class="container-fluid">

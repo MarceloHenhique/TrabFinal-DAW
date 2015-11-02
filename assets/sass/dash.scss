@@ -1,9 +1,12 @@
 @import "../../assets/vendor/css/bootstrap.min";
-@import "../../assets/vendor/css/loading-bar.min";
 @import "../../assets/vendor/css/reset";
+@import "../../assets/vendor/css/loading-bar.min";
+@import "../../assets/vendor/css/font-awesome.min";
 
 /* libs */
 @import "compass";
+
+$base_color: #646464;
 
 .animate-hide {
   transition: all ease-in-out 0.5s;
@@ -20,7 +23,9 @@
 
 html {
 	body {
-		@include user-select(none);
+    @include user-select(none);
+
+    color: $base_color;
 
 		font: {
 			family: "Roboto";
@@ -38,7 +43,26 @@ html {
 			color: red;
 		}
 
+    aside.menu {
+      background-color: $base_color;
+      color: #FFFFFF;
+      width: 250px;
+      height: 100%;
+      position: absolute;
+      z-index: 999;
+
+      nav {
+        ul {
+          li {
+
+          }
+        }
+      }
+    }
+
 		main[role="main"] {
+      margin-left: 250px;
+
 			article[role="complementary"].questions {
 				div.container-questions {
 					div.single-question {
@@ -72,7 +96,7 @@ html {
 								padding: 10px;
 								position: relative;
 								color: #FFF;
-								background-color: #000;
+								background-color: $base_color;
 								border: thin solid #FFFFFF;
 
 								@include transition(all 0.3s ease-in-out);
@@ -88,16 +112,16 @@ html {
 
 							&:not(:disabled) + label {
 								&:hover {
-									color: #000000;
+									color: $base_color;
 									background-color: #FFFFFF;
-                  border-color: #000000;
+                  border-color: $base_color;
 								}
 							}
 
 							&:checked + label {
-								color: #000000;
+								color: $base_color;
 								background-color: #FFFFFF;
-								border-color: #000000;
+								border-color: $base_color;
 							}
 						}
 					}
