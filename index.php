@@ -21,7 +21,7 @@ $app->get("/.*", function () use ($app) {
         if ($url[strlen($url) - 1] == "/") {
             $url = substr($url, 0, strlen($url) - 1);
         }
-            
+
         get_header();
 
         include_once "templates$url.php";

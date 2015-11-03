@@ -6,6 +6,8 @@ class User {
   function __construct($id, $name) {
     $this->id   = $id;
     $this->name = $name;
+    $_SESSION["logado"] = $name ;
+    $_SESSION["id"] = $id ;
   }
 
   public function getId() {

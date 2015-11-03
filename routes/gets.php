@@ -1,8 +1,15 @@
 <?php
+
 $app->get("/", function () use ($app) {
 	get_header();
 
-	require_once "templates/dashboard.php";
+	$logic = new Logic ;
+
+	if($logic::ifLogado()) {
+		require_once "templates/login/index.php";
+	} else {
+		require_once "templates/dashboad.php";
+	}
 
 	get_footer();
 });
@@ -43,11 +50,11 @@ $app->get("/topics/", function() use ($app, $con) {
 	echo json_encode($topics) ;
 });
 
-$app->get("/user/:userid/", function($userid) use ($app, $con) {
+$app->get("/user/:login/:pass", function($login, $pass) use ($app, $con) {
 	$app->response->headers->set("Content-Type", "text/plain");
 
 	$query = mysqli_query($con, "SELECT COUNT(*) as Quantidade FROM users
-		WHERE users.id = $userid
+		WHERE users.login = $login AND users.password = $pass
 	");
 
 	$row = mysqli_fetch_array($query);
