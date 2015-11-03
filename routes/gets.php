@@ -28,6 +28,39 @@ $app->get("/question/", function () use ($app, $con) {
 	echo json_encode($questions);
 })->name("hello");
 
+$app->get("/topics/", function() use ($app, $con) {
+	$app->response->headers->set("Content-Type", "text/plain");
+
+	$query = mysqli_query($con, "SELECT * FROM topics");
+
+	$topics = array();
+
+	while($row = mysqli_fetch_object($query)) {
+		validate_as_utf8($row);
+		$topics[] = $row ;
+	}
+
+	echo json_encode($topics) ;
+});
+
+$app->get("/user/:userid/", function($userid) use ($app, $con) {
+	$app->response->headers->set("Content-Type", "text/plain");
+
+	$query = mysqli_query($con, "SELECT COUNT(*) as Quantidade FROM users
+		WHERE users.id = $userid
+	");
+
+	$row = mysqli_fetch_array($query);
+	$count = $row["Quantidade"] ;
+
+
+	if($count > 0) {
+		echo json_encode(true);
+	} else {
+		echo json_encode(false);
+	}
+});
+
 $app->get("/stats/:examid/", function ($examid) use ($app, $con) {
 	$app->response->headers->set("Content-Type", "text/plain");
 

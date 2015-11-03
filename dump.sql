@@ -1,14 +1,20 @@
 -- phpMyAdmin SQL Dump
--- version 4.4.14
+-- version 4.5.0.2
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 03-Nov-2015 às 00:15
--- Versão do servidor: 5.6.26
--- PHP Version: 5.6.12
+-- Generation Time: 03-Nov-2015 às 04:19
+-- Versão do servidor: 10.0.17-MariaDB
+-- PHP Version: 5.6.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `enem`
@@ -20,11 +26,10 @@ SET time_zone = "+00:00";
 -- Estrutura da tabela `exams`
 --
 
-DROP TABLE IF EXISTS `exams`;
-CREATE TABLE IF NOT EXISTS `exams` (
+CREATE TABLE `exams` (
   `id` int(11) NOT NULL,
   `users_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `exams`
@@ -49,8 +54,7 @@ INSERT INTO `exams` (`id`, `users_id`) VALUES
 -- Estrutura da tabela `exams_has_questions`
 --
 
-DROP TABLE IF EXISTS `exams_has_questions`;
-CREATE TABLE IF NOT EXISTS `exams_has_questions` (
+CREATE TABLE `exams_has_questions` (
   `exams_id` int(11) NOT NULL,
   `questions_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -62,40 +66,40 @@ CREATE TABLE IF NOT EXISTS `exams_has_questions` (
 INSERT INTO `exams_has_questions` (`exams_id`, `questions_id`) VALUES
 (1, 1),
 (1, 2),
+(1, 3),
+(1, 4),
+(1, 5),
+(1, 6),
+(1, 7),
+(1, 8),
+(1, 9),
+(1, 10),
+(1, 11),
+(1, 12),
 (3, 2),
 (5, 2),
 (6, 2),
 (7, 2),
 (8, 2),
-(9, 2),
-(10, 2),
-(11, 2),
-(1, 3),
 (8, 3),
-(9, 3),
-(10, 3),
-(11, 3),
-(1, 4),
-(1, 5),
-(1, 6),
-(1, 7),
 (8, 7),
-(9, 7),
-(10, 7),
-(11, 7),
-(1, 8),
-(1, 9),
 (8, 9),
-(9, 9),
-(10, 9),
-(11, 9),
-(1, 10),
 (8, 10),
+(9, 2),
+(9, 3),
+(9, 7),
+(9, 9),
 (9, 10),
+(10, 2),
+(10, 3),
+(10, 7),
+(10, 9),
 (10, 10),
-(11, 10),
-(1, 11),
-(1, 12);
+(11, 2),
+(11, 3),
+(11, 7),
+(11, 9),
+(11, 10);
 
 -- --------------------------------------------------------
 
@@ -103,8 +107,7 @@ INSERT INTO `exams_has_questions` (`exams_id`, `questions_id`) VALUES
 -- Estrutura da tabela `questions`
 --
 
-DROP TABLE IF EXISTS `questions`;
-CREATE TABLE IF NOT EXISTS `questions` (
+CREATE TABLE `questions` (
   `id` int(11) NOT NULL,
   `topics_id` int(11) NOT NULL,
   `statement` text NOT NULL,
@@ -114,7 +117,7 @@ CREATE TABLE IF NOT EXISTS `questions` (
   `alternative_d` tinytext,
   `alternative_e` tinytext,
   `answer` varchar(1) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `questions`
@@ -140,8 +143,7 @@ INSERT INTO `questions` (`id`, `topics_id`, `statement`, `alternative_a`, `alter
 -- Estrutura da tabela `results`
 --
 
-DROP TABLE IF EXISTS `results`;
-CREATE TABLE IF NOT EXISTS `results` (
+CREATE TABLE `results` (
   `users_id` int(11) NOT NULL,
   `exams_id` int(11) NOT NULL,
   `questions_id` int(11) NOT NULL,
@@ -177,11 +179,10 @@ INSERT INTO `results` (`users_id`, `exams_id`, `questions_id`, `answer`) VALUES
 -- Estrutura da tabela `subjects`
 --
 
-DROP TABLE IF EXISTS `subjects`;
-CREATE TABLE IF NOT EXISTS `subjects` (
+CREATE TABLE `subjects` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `subjects`
@@ -197,12 +198,11 @@ INSERT INTO `subjects` (`id`, `name`) VALUES
 -- Estrutura da tabela `topics`
 --
 
-DROP TABLE IF EXISTS `topics`;
-CREATE TABLE IF NOT EXISTS `topics` (
+CREATE TABLE `topics` (
   `id` int(11) NOT NULL,
   `description` varchar(255) NOT NULL,
   `subjects_id` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `topics`
@@ -224,8 +224,7 @@ INSERT INTO `topics` (`id`, `description`, `subjects_id`) VALUES
 -- Estrutura da tabela `users`
 --
 
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE IF NOT EXISTS `users` (
+CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `login` varchar(45) NOT NULL,
   `password` varchar(255) NOT NULL,
@@ -236,7 +235,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `birthdate` date NOT NULL,
   `cpf` varchar(15) DEFAULT 'non-informed',
   `rank` int(11) DEFAULT '1'
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `users`
@@ -307,27 +306,27 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `exams`
 --
 ALTER TABLE `exams`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `questions`
 --
 ALTER TABLE `questions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `subjects`
 --
 ALTER TABLE `subjects`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `topics`
 --
 ALTER TABLE `topics`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- Constraints for dumped tables
 --
@@ -364,3 +363,7 @@ ALTER TABLE `results`
 --
 ALTER TABLE `topics`
   ADD CONSTRAINT `fk_topics_subjects_id` FOREIGN KEY (`subjects_id`) REFERENCES `subjects` (`id`) ON DELETE CASCADE;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

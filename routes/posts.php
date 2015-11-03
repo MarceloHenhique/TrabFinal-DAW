@@ -1,4 +1,23 @@
 <?php
+
+$app->post("/caduser/", function() use ($app, $con) {
+	$app->response->headers->set("Content-Type", "text/plain");
+
+	$body = $app->request->getBody();
+	$data = json_decode($body);
+
+	$query = mysqli_query($con, "INSERT INTO users (id, login, password, email, firstname, lastname, telephone, birthdate, cpf, rank) VALUES (
+		'$data->user_id', '$data->login', '$data->pssw', '$data->email', '$data->fname', '$data->lname', '$data->tel', '$data->birthdate', '$data->cpf', '$data->rank'
+	)");
+
+	if(query == false) {
+		die("Ops: " . mysqli_error($con));
+	}
+
+	echo "success" ;
+});
+
+
 $app->post("/results/", function () use ($app, $con) {
 	$app->response->headers->set("Content-Type", "text/plain");
 
