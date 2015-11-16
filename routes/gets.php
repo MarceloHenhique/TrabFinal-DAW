@@ -8,10 +8,40 @@ $app->get("/", function () use ($app) {
 	if($logic::ifLogado()) {
 		require_once "templates/login/index.php";
 	} else {
-		require_once "templates/dashboad.php";
+		require_once "templates/login/index.php";
 	}
 
 	get_footer();
+});
+
+$app->get("/index", function () use ($app, $con) {
+
+	get_header();
+
+	require_once "templates/dashboard.php" ;
+
+	get_header();
+
+});
+
+$app->get("/index/", function () use ($app, $con) {
+
+	get_header();
+
+	require_once "templates/dashboard.php" ;
+
+	get_header();
+
+});
+
+$app->get("/createSimu/", function () use ($app, $con) {
+
+	get_header();
+
+	require_once "templates/exams/create.php" ;
+
+	get_header();
+
 });
 
 $app->get("/question/", function () use ($app, $con) {

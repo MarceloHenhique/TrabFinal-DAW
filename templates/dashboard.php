@@ -1,4 +1,19 @@
-<article role="complementary" class="row questions" ng-controller="questionController as questionCtrl">
+<?
+	// Verificar se tá logado
+
+?>
+
+<div class="col-md-8 col-md-offset-2 col-sm-12">
+	<div class="center">
+		<h1>Seja bem vindo <?php echo "raulj" ?> </h1>
+		<button onclick="window.location.href='createSimu'" type="button" class="btn btn-primary">Criar Simulado</button>
+		<button type="button" class="btn btn-success">undefined</button>
+		<button type="button" class="btn btn-info">undefined</button>
+		<button type="button" class="btn btn-warning">undefined</button>
+	</div>
+</div>
+
+<!-- <article role="complementary" class="row questions" ng-controller="questionController as questionCtrl">
 	<div class="col-xs-offset-2 col-xs-8 container-questions animate-hide" ng-show="questionCtrl.ready == true">
 		<div class="single-question animate-hide" ng-show="questionCtrl.end || questionCtrl.current == $index" ng-repeat="question in questionCtrl.list" id="question-{{ $index }}">
 			<div>
