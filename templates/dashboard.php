@@ -5,7 +5,7 @@
 
 <div class="col-md-8 col-md-offset-2 col-sm-12">
 	<div class="center">
-		<h1>Seja bem vindo <?php echo "raulj" ?> </h1>
+		<h1>Seja bem vindo ao MER ENEM, <?php echo " raulj" ?> </h1>
 		<button onclick="window.location.href='createSimu'" type="button" class="btn btn-primary">Criar Simulado</button>
 		<button type="button" class="btn btn-success">undefined</button>
 		<button type="button" class="btn btn-info">undefined</button>
